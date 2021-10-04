@@ -11,7 +11,16 @@ import { NotImplementedError } from '../extensions/index.js';
  * For n = 152, the output should be 52
  *
  */
-export default function deleteDigit(/* n */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+export default function deleteDigit( n ) {
+  let arr = n
+    .toString()
+    .split("")
+    .map(( e ) => +e);
+
+  let m = arr.reduce((a, b) => {
+    if (b < a) return (a = b);
+    return a;
+  }, arr[ 0 ]);
+  let index = arr.indexOf( m );
+  return + [...arr.slice(0, index), ...arr.slice(index + 1)].join("");
 }
