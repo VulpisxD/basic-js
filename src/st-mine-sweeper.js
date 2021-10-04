@@ -23,7 +23,35 @@ import { NotImplementedError } from '../extensions/index.js';
  *  [1, 1, 1]
  * ]
  */
-export default function minesweeper (/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function isItMine( matrix, i, j ) {
+  if (
+    typeof matrix[i] == "undefined" ||
+    typeof matrix[i][j] == "undefined" ||
+    !matrix[i][j]
+  ){
+    return 0;
+  } else {
+    return 1;
+  }
+}
+export default function minesweeper( matrix ) {
+  let resArr = [];
+  for (var i = 0; i < matrix.length; i++) {
+    var currRow = [];
+    var bombs = 0;
+    for (var j = 0; j < matrix[ i ].length; j++) {
+      bombs =
+        isItMine(matrix, i - 1, j - 1) +
+        isItMine(matrix, i - 1, j) +
+        isItMine(matrix, i - 1, j + 1) +
+        isItMine(matrix, i, j - 1) +
+        isItMine(matrix, i, j + 1) +
+        isItMine(matrix, i + 1, j - 1) +
+        isItMine(matrix, i + 1, j) +
+        isItMine(matrix, i + 1, j + 1);
+      currRow.push( bombs );
+    }
+    resArr.push( currRow );
+  }
+  return resArr;
 }
